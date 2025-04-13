@@ -37,6 +37,8 @@ export default function RootLayout({ children }) {
       <meta name="twitter:title" content="ليبيا الغد | المشاريع والخدمات" />
       <meta name="twitter:description" content="اكتشف المشاريع والخدمات المتميزة التي تقدمها ليبيا الغد." />
       <meta name="twitter:image" content="https://libyaalghad.com/logo.png" />
+      <meta property="fb:app_id" content="678187878005363" />
+
 </head>
       <body>
         <AdminNavbar/>
