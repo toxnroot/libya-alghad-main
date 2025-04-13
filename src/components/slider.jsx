@@ -62,6 +62,7 @@ export default function AutoSlider() {
                 alt={`Slide ${index + 1}`}
                 fill
                 className="object-cover"
+                loading="eager"
               />
 
               {/* طبقة التدرج والنصوص */}
