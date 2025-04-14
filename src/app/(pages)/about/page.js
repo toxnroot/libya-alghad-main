@@ -3,6 +3,7 @@
 import { Phone, MessageCircle, Mail } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import GalleryWithModal from '@/components/GalleryWithModal';
 
 export default function About() {
   return (
@@ -130,6 +131,7 @@ export default function About() {
                 Alhamaliabdalmajed@gmail.com
               </a>
             </div>
+            <GalleryWithModal />
           </div>
         </section>
       </div>

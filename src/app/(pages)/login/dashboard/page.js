@@ -10,6 +10,7 @@ import ChangeUserInfo from '@/components/ChangeUserInfo';
 import AddUser from '@/components/AddUser';
 import AddProject from '@/components/AddProject';
 import AdminUsersPage from '@/components/AdminUsersPage';
+import AddAboutImage from '@/components/AddAboutImage';
 
 export default function Dashboard() {
   const [userRole, setUserRole] = useState('');
@@ -50,6 +51,8 @@ export default function Dashboard() {
 
         {/* إضافة مستخدم جديد (بناءً على صلاحية المستخدم) */}
         {userRole === 'moderator' && <AddUser />}
+
+        <AddAboutImage />
 
         {/* إضافة مشروع جديد */}
         <AddProject />
