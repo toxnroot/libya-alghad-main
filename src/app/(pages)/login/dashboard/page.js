@@ -11,6 +11,7 @@ import AddUser from '@/components/AddUser';
 import AddProject from '@/components/AddProject';
 import AdminUsersPage from '@/components/AdminUsersPage';
 import AddAboutImage from '@/components/AddAboutImage';
+import GalleryDisplay from '@/components/GalleryDisplay';
 
 export default function Dashboard() {
   const [userRole, setUserRole] = useState('');
@@ -58,6 +59,7 @@ export default function Dashboard() {
         <AddProject />
 
       </div>
+      <GalleryDisplay />
       {/* التحكم بالمستخدمين */}
       <AdminUsersPage userRole={userRole} />
 

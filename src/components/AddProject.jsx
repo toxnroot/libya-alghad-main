@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { db } from '@/app/api/firebase'; // تأكد من أن المسار صحيح
+import { collection, addDoc } from 'firebase/firestore'; // استيراد addDoc و collection من Firebase
 
 export default function AddProject() {
   const [title, setTitle] = useState('');

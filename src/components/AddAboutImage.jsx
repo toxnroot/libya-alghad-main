@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { db } from "@/app/api/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid"; // ✅ استيراد uuid
 
 export default function AddAboutImage() {
   const [image, setImage] = useState(null);
@@ -11,10 +12,15 @@ export default function AddAboutImage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // ✅ رفع الصورة باسم فريد
   const handleImageUpload = async (file) => {
     const formData = new FormData();
+    const fileExtension = file.name.split('.').pop();
+    const uniqueName = `about_${Date.now()}_${uuidv4()}.${fileExtension}`;
+
     formData.append("file", file);
     formData.append("upload_preset", "toxnroot"); // preset تبع Cloudinary
+    formData.append("public_id", uniqueName); // 👈 اسم مخصص
 
     const response = await axios.post(
       "https://api.cloudinary.com/v1_1/do88eynar/image/upload",
@@ -27,7 +33,10 @@ export default function AddAboutImage() {
       }
     );
 
-    return response.data.secure_url;
+    return {
+      url: response.data.secure_url,
+      public_id: response.data.public_id,
+    };
   };
 
   const handleSubmit = async (e) => {
@@ -44,10 +53,11 @@ export default function AddAboutImage() {
         return;
       }
 
-      const imageUrl = await handleImageUpload(image);
+      const { url, public_id } = await handleImageUpload(image);
 
       await addDoc(collection(db, "gallery"), {
-        url: imageUrl,
+        url,
+        public_id, // ✅ تخزين الـ public_id
         createdAt: new Date().toISOString(),
       });
 
@@ -62,7 +72,9 @@ export default function AddAboutImage() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4 text-center text-[#d4af37]">إضافة صورة إلى نبذة عن الشركة</h2>
+      <h2 className="text-xl font-bold mb-4 text-center text-[#d4af37]">
+        إضافة صورة إلى نبذة عن الشركة
+      </h2>
 
       {error && <p className="text-red-500 text-center mb-2">{error}</p>}
       {success && <p className="text-green-600 text-center mb-2">{success}</p>}
@@ -82,7 +94,9 @@ export default function AddAboutImage() {
               style={{ width: `${uploadProgress}%` }}
             ></div>
           </div>
-          <p className="text-sm text-center text-gray-600 mt-1">{uploadProgress}%</p>
+          <p className="text-sm text-center text-gray-600 mt-1">
+            {uploadProgress}%
+          </p>
         </div>
       )}
 

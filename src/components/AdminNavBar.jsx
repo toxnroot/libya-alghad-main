@@ -11,15 +11,14 @@ const AdminNavbar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('بدء التحقق من حالة المستخدم...');
     const unsubscribe = auth.onAuthStateChanged(
       (user) => {
-        console.log('حالة المستخدم:', user ? user.uid : 'لا يوجد مستخدم');
+
         setUser(user);
         setLoading(false);
       },
       (error) => {
-        console.error('خطأ في التحقق من المستخدم:', error);
+
         setLoading(false);
       }
     );
@@ -30,10 +29,10 @@ const AdminNavbar = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      console.log('تم تسجيل الخروج');
+;
       router.push('/login');
     } catch (err) {
-      console.error('فشل تسجيل الخروج:', err.message);
+
     }
   };
 

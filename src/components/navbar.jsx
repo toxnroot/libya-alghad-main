@@ -19,10 +19,10 @@ export default function Navbar() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('المستخدم المسجل:', user); // تحقق من المستخدم في الكونسول
+
         setUser(user); // تعيين المستخدم إذا كان مسجلًا
       } else {
-        console.log('لا يوجد مستخدم مسجل'); // تحقق من الحالة في الكونسول
+
         setUser(null); // إذا لم يكن هناك مستخدم
       }
     });
@@ -35,10 +35,10 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      console.log('تم تسجيل الخروج');
+
       router.push('/login'); // إعادة التوجيه إلى صفحة تسجيل الدخول
     } catch (err) {
-      console.error('فشل تسجيل الخروج:', err.message);
+
     }
   };
 

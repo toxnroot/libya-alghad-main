@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '@/app/api/firebase';  // استيراد إعدادات Firebase
+import LoaderApp from '@/components/Lodaer';
 
 const AdminUsersPage = ({ userRole }) => {
   const [users, setUsers] = useState([]);
@@ -38,7 +39,7 @@ const AdminUsersPage = ({ userRole }) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoaderApp />; 
 
   // إخفاء المكون كاملاً إذا لم يكن الدور "مدير"
   if (userRole !== "moderator") {

@@ -4,7 +4,7 @@ import { db } from '@/app/api/firebase';
 import { collection, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import axios from 'axios';
 
-export default function ProjectList({userRole}) {
+export default function ProjectList({ userRole }) {
   const [projects, setProjects] = useState([]);
   const [editingProject, setEditingProject] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
@@ -143,99 +143,107 @@ export default function ProjectList({userRole}) {
   return (
     <div className="container mx-auto mt-10 px-4">
       <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">قائمة المشاريع</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map(project => (
-          <div
-            key={project.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1"
-          >
-            {editingProject === project.id ? (
-              <div className="p-6">
-                <input
-                  type="text"
-                  value={editedTitle}
-                  onChange={(e) => setEditedTitle(e.target.value)}
-                  className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="عنوان المشروع"
-                />
-                <textarea
-                  value={editedDescription}
-                  onChange={(e) => setEditedDescription(e.target.value)}
-                  className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  rows="4"
-                  placeholder="وصف المشروع"
-                />
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">تغيير الصورة</label>
-                  {imagePreview && (
-                    <img 
-                      src={imagePreview} 
-                      alt="معاينة" 
-                      className="w-full h-40 object-cover rounded-lg mb-2" 
+      
+      {/* تحقق إذا كانت القائمة فارغة */}
+      {projects.length === 0 ? (
+        <div className="bg-yellow-100 text-yellow-800 p-6 rounded-lg shadow-lg text-center">
+          <h3 className="text-xl font-semibold">لا يوجد مشاريع منشورة بعد</h3>
+          <p>لا توجد مشاريع تم نشرها حتى الآن. يرجى إضافة بعض المشاريع لتظهر هنا.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map(project => (
+            <div
+              key={project.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1"
+            >
+              {editingProject === project.id ? (
+                <div className="p-6">
+                  <input
+                    type="text"
+                    value={editedTitle}
+                    onChange={(e) => setEditedTitle(e.target.value)}
+                    className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="عنوان المشروع"
+                  />
+                  <textarea
+                    value={editedDescription}
+                    onChange={(e) => setEditedDescription(e.target.value)}
+                    className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    rows="4"
+                    placeholder="وصف المشروع"
+                  />
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">تغيير الصورة</label>
+                    {imagePreview && (
+                      <img 
+                        src={imagePreview} 
+                        alt="معاينة" 
+                        className="w-full h-40 object-cover rounded-lg mb-2" 
+                      />
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+                    />
+                  </div>
+                  <div className="flex justify-end space-x-3">
+                    <button
+                      onClick={() => handleEditSave(project.id, project.status, project.image)}
+                      className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition duration-200"
+                    >
+                      حفظ
+                    </button>
+                    <button
+                      onClick={() => {
+                        setEditingProject(null);
+                        setImagePreview('');
+                        setNewImage(null);
+                      }}
+                      className="bg-gray-600 text-white px-5 py-2 rounded-lg hover:bg-gray-700 transition duration-200"
+                    >
+                      إلغاء
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  {project.image && (
+                    <img
+                      src={`${project.image}?t=${new Date().getTime()}`}
+                      alt={project.title}
+                      className="w-full h-48 object-cover rounded-lg mb-4"
                     />
                   )}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-                  />
+                  <p className="text-sm text-gray-500 mb-4">
+                    الحالة: {project.status === 'completed' ? 'منجز' : 'قيد الإنجاز'}
+                  </p>
+                  {userRole === 'moderator' && (
+                    <div className="flex justify-end space-x-3">
+                      <button
+                        onClick={() => handleEditClick(project)}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                      >
+                        تعديل
+                      </button>
+                      <button
+                        onClick={() => handleDelete(project.id, project.status, project.image)}
+                        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-200"
+                      >
+                        حذف
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <div className="flex justify-end space-x-3">
-                  <button
-                    onClick={() => handleEditSave(project.id, project.status, project.image)}
-                    className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition duration-200"
-                  >
-                    حفظ
-                  </button>
-                  <button
-                    onClick={() => {
-                      setEditingProject(null);
-                      setImagePreview('');
-                      setNewImage(null);
-                    }}
-                    className="bg-gray-600 text-white px-5 py-2 rounded-lg hover:bg-gray-700 transition duration-200"
-                  >
-                    إلغاء
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
-                {project.image && (
-                  <img
-                    src={`${project.image}?t=${new Date().getTime()}`}
-                    alt={project.title}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                )}
-                <p className="text-sm text-gray-500 mb-4">
-                  الحالة: {project.status === 'completed' ? 'منجز' : 'قيد الإنجاز'}
-                </p>
-                {userRole === 'moderator' && (
-                  <div className="flex justify-end space-x-3">
-                  <button
-                    onClick={() => handleEditClick(project)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
-                  >
-                    تعديل
-                  </button>
-                  <button
-                    onClick={() => handleDelete(project.id, project.status, project.image)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-200"
-                  >
-                    حذف
-                  </button>
-                </div>
-                )}
-                
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
