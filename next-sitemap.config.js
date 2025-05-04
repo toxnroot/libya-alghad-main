@@ -13,7 +13,7 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      'https://libyaalghad.com/sitemap.xml', // رابط sitemap
+      'https://www.libyaalghad.com/sitemap.xml', // رابط sitemap
     ],
   },
   exclude: ['/api/*','/login/*'], // استبعاد مسارات API من sitemap
