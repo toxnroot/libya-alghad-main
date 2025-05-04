@@ -8,12 +8,12 @@ module.exports = {
     policies: [
       {
         userAgent: '*',
-        allow: '/', // السماح بفهرسة جميع الصفحات
+        allow: '/*', // السماح بفهرسة جميع الصفحات
         disallow: ['/api/*', '/login/*'], // استبعاد مسارات API من الفهرسة
       },
     ],
     additionalSitemaps: [
-      'https://www.libyaalghad.com/sitemap.xml', // رابط sitemap
+      'https://libyaalghad.com/sitemap.xml', // رابط sitemap
     ],
   },
   exclude: ['/api/*','/login/*'], // استبعاد مسارات API من sitemap
