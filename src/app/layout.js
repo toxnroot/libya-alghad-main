@@ -3,8 +3,6 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import AdminNavbar from "@/components/AdminNavBar";
 import Head from "next/head";
-import { Analytics } from "@vercel/analytics/react";
-import {SpeedInsights} from '@vercel/speed-insights/next'
 export const metadata = {
   title: 'ليبيا الغد | المشاريع والخدمات',
   description: 'اكتشف المشاريع والخدمات المتميزة التي تقدمها ليبيا الغد.',
@@ -84,8 +82,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
-        <SpeedInsights />
-        <Analytics />
+
       </body>
     </html>
   );
