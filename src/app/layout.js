@@ -71,6 +71,7 @@ export default function RootLayout({ children }) {
         
         {/* Theme Color */}
         <meta name="theme-color" content={metadata.themeColor} />
+        <meta name="google-site-verification" content="LsnWfhO0TKvj51mqvo__9ovGfyXbBZ_S16BVqWM0sGQ" />
         
         {/* Other Meta Tags */}
         {Object.keys(metadata.other).map(key => (
