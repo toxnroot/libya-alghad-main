@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/*
+Disallow: /login/*
+
+# Host
+Host: https://www.libyaalghad.com
+
+# Sitemaps
+Sitemap: https://www.libyaalghad.com/sitemap.xml
