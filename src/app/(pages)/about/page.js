@@ -113,7 +113,7 @@ export default function About() {
                   <Phone size={24} className="text-black" />
                 </div>
                 <a
-                  href="tel:+2180927492147"
+                  href="tel:+218926386290"
                   className="text-gray-300 hover:text-[#d4af37] transition-colors"
                 >
                   +218 0927492147
@@ -125,7 +125,7 @@ export default function About() {
                   <MessageCircle size={24} className="text-black" />
                 </div>
                 <a
-                  href="https://wa.me/218927492147"
+                  href="https://wa.me/218926386290"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-[#d4af37] transition-colors"

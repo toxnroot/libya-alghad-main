@@ -65,7 +65,7 @@ export default function Contact() {
               contactPoint: [
                 {
                   "@type": "ContactPoint",
-                  telephone: "+218927492147",
+                  telephone: "+218926386290",
                   contactType: "Customer Service",
                   email: "Alhamaliabdalmajed@gmail.com",
                   areaServed: "LY",
@@ -152,10 +152,10 @@ export default function Contact() {
                   📞
                 </span>
                 <a
-                  href="tel:+218927492147"
+                  href="tel:+218926386290"
                   className="text-gray-300 hover:text-[#d4af37] transition-colors text-lg"
                 >
-                  00218927492147
+                  00+218926386290
                 </a>
               </motion.div>
               <motion.div
@@ -172,7 +172,7 @@ export default function Contact() {
                   💬
                 </span>
                 <a
-                  href="https://wa.me/218927492147"
+                  href="https://wa.me/218926386290"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-[#d4af37] transition-colors text-lg"
@@ -319,7 +319,7 @@ export default function Contact() {
             </motion.form>
             <div className="mt-6 text-center">
               <a
-                href="https://wa.me/218927492147"
+                href="https://wa.me/218926386290"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-[#25D366] text-white py-2 px-6 rounded-lg hover:bg-[#1EBE56] transition-colors"

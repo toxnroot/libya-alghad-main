@@ -20,16 +20,16 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <Phone size={24} />
               <a
-                href="tel:+2180927492147"
+                href="tel:+218926386290"
                 className="text-white hover:underline hover:text-gray-200 transition-colors"
               >
-                +218 0927492147
+                +218 926386290
               </a>
             </div>
             <div className="flex items-center gap-3">
               <MessageCircle size={24} />
               <a
-                href="https://wa.me/218927492147"
+                href="https://wa.me/218926386290"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:underline hover:text-gray-200 transition-colors"
